@@ -12,46 +12,47 @@ end g14_7_segment_decoder;
 
 architecture imp of g14_7_segment_decoder is
 signal x : std_logic_vector(4 downto 0);
--- signal y : std_logic_vector(7 downto 0);
+signal y : std_logic_vector(7 downto 0);
 begin
-x<= RippleBlank_In&code;
--- y<= RippleBlank_Out&segments;
-RippleBlank_Out <= RippleBlank_In;
+x <= RippleBlank_In & code;
+RippleBlank_Out <= y(7);
+segments <= y(6 downto 0);
+-- RippleBlank_Out <= RippleBlank_In;
 with x select
-		segments<= 	"0111111" when "00000",--0
-						"0000110" when "00001",--1
-						"1011011" when "00010",--2
-						"1001111" when "00011",--3
-						"1100110" when "00100",--4
-						"1101101" when "00101",--5
-						"1111101" when "00110",--6
-						"0000111" when "00111",--7
-						"1100111" when "01000",--8
-						"0111111" when "01001",--9
-						"1111100" when "01010",--b
-						"1111011" when "01011",--r
-						"1110100" when "01100",--n
-						"0011110" when "01101",--j
-						"0111110" when "01110",--u
-						"0111001" when "01111",--c
+			y	<= 	"00111111" when "00000",--0
+						"00000110" when "00001",--1
+						"01011011" when "00010",--2
+						"01001111" when "00011",--3
+						"01100110" when "00100",--4
+						"01101101" when "00101",--5
+						"01111101" when "00110",--6
+						"00000111" when "00111",--7
+						"01100111" when "01000",--8
+						"00111111" when "01001",--9
+						"01111100" when "01010",--b
+						"01111011" when "01011",--r
+						"01110100" when "01100",--n
+						"00011110" when "01101",--j
+						"00111110" when "01110",--u
+						"00111001" when "01111",--c
 			-- for decoders that are connected to the left part
-						"0000000" when "10000",--leading 0
-						"0000110" when "10001",--1
-						"1011011" when "10010",--2
-						"1001111" when "10011",--3
-						"1100110" when "10100",--4
-						"1101101" when "10101",--5
-						"1111101" when "10110",--6
-						"0000111" when "10111",--7
-						"1100111" when "11000",--8
-						"0111111" when "11001",--9
-						"1111100" when "11010",--b
-						"1111011" when "11011",--r
-						"1110100" when "11100",--n
-						"0011110" when "11101",--j
-						"0111110" when "11110",--u
-						"0111001" when "11111",--c
+						"10000000" when "10000",--leading 0
+						"00000110" when "10001",--1
+						"01011011" when "10010",--2
+						"01001111" when "10011",--3
+						"01100110" when "10100",--4
+						"01101101" when "10101",--5
+						"01111101" when "10110",--6
+						"00000111" when "10111",--7
+						"01100111" when "11000",--8
+						"00111111" when "11001",--9
+						"01111100" when "11010",--b
+						"01111011" when "11011",--r
+						"01110100" when "11100",--n
+						"00011110" when "11101",--j
+						"00111110" when "11110",--u
+						"00111001" when "11111",--c
 				--for all other posible signals
-						"0000000" when others;
+						"00000000" when others;
 end imp;
 
