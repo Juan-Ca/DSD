@@ -13,26 +13,50 @@ end g14_7_segment_decoder;
 architecture imp for g14_7_segment_decoder is
 
 begin
+signal x : std_logic_vector(4 downto 0);
+signal y : std_logic_vector(7 downto 0);
+begin
+x <= RippleBlank_In & code;
+RippleBlank_Out <= y(7);
+segments <= y(6 downto 0);
+-- RippleBlank_Out <= RippleBlank_In;
 when code & RippleBlank_In select
 		
-		segments <= 
-						"0111111" when to_unsigned(1,8),
-						"0000110" when to_unsigned(2,8),
-						"1011011" when to_unsigned(3,8),
-						"1001111" when to_unsigned(4,8),
-						"1100110" when to_unsigned(5,8),
-						"1101101" when to_unsigned(6,8),
-						"1111101" when to_unsigned(7,8),
-						"0000111" when to_unsigned(8,8),
-						"1100111" when to_unsigned(9,8),
-						"0111111" when to_unsigned(10,8),
-						"1111100" when to_unsigned(11,8),--b
-						"1111011" when to_unsigned(12,8),--r
-						"1110100" when to_unsigned(13,8),--n
-						"0011110" when to_unsigned(14,8),--j
-						"0111110" when to_unsigned(15,8),--u
-						"0111001" when to_unsigned(16,8),--c
-						"0000000" when others;
+		y	<= 		"01000000" when "00000",--0
+						"01111001" when "00001",--1
+						"00100100" when "00010",--2
+						"00110000" when "00011",--3
+						"00011001" when "00100",--4
+						"00010010" when "00101",--5
+						"00000010" when "00110",--6
+						"01111000" when "00111",--7
+						"00000000" when "01000",--8
+						"00011000" when "01001",--9
+						"00000011" when "01010",--b
+						"00001000" when "01011",--r
+						"00001011" when "01100",--n
+						"01100001" when "01101",--j
+						"01000001" when "01110",--u
+						"01000110" when "01111",--c
+			-- for decoders that are connected to the left part
+						"11111111" when "10000",--leading 0
+						"01111001" when "10001",--1
+						"00100100" when "10010",--2
+						"00110000" when "10011",--3
+						"00011001" when "10100",--4
+						"00010010" when "10101",--5
+						"00000010" when "10110",--6
+						"01111000" when "10111",--7
+						"00000000" when "11000",--8
+						"00011000" when "11001",--9
+						"00000011" when "11010",--b
+						"00001000" when "11011",--r
+						"00001011" when "11100",--n
+						"01100001" when "11101",--j
+						"01000001" when "11110",--u
+						"01000110" when "11111",--c
+				--for all other posible signals
+						"00000000" when others;
 end imp;
 
 
