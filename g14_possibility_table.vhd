@@ -27,26 +27,26 @@ TC_LAST <= flag;
 
 process (clk, TM_EN, TC_RST)
 
-		if (TC_RST = '1') then
-			TC <= std_logic_vector(0,12);
-		end if;
-		
-		
-		
-		
-		
 		
 		for i in 0 to 5 loop
 				for j in 0 to 5 loop
 					for m in 0 to 5 loop
 						for n in 0 to 5 loop
-							if (TM_EN = '1') then 
-								if ()
-								elsif (clk'event and ckl = '0') then
-									addr <= std_logic_vector(to_unsigned(i)&to_unsigned(j)&to_unsigned(m)&to_unsigned(n));
+								first:if (TC_RST = '1') then
+									TC <= std_logic_vector(0,12),
+									i = 0, j = 0, m = 0, n = 0;			
+								elsif(TC_RST = '0' and TM_EN = '1') then
+									second:if (clk'event and ckl = '0') then
+										addr <= std_logic_vector(to_unsigned(i)&to_unsigned(j)&to_unsigned(m)&to_unsigned(n));
+									end second:if;
+								end first:if;	
 						end loop;
 					end loop;
 				end loop;
+			if (i = 5 and j = 5 and m = 5 and n = 5) then
+				TC_LAST <= '1';
+			else then
+				TC_LAST <= '0';
 		end loop;
 
 end imp;
