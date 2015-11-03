@@ -18,7 +18,7 @@ end g14_possibility_table;
 
 Architecture imp of g14_possibility_table is
 
-signal addr : std_logic_vector(11 downto 0);
+signal TC : std_logic_vector(11 downto 0);
 signal flag : std_logic;
 
 begin
@@ -27,14 +27,26 @@ TC_LAST <= flag;
 
 process (clk, TM_EN, TC_RST)
 
-	while (TM_EN = '1' and flag = '0')then
 		if (TC_RST = '1') then
-			addr <= std_logic_vector(to_unsigned(0,12));
-		elsif (clk'event and clock = '0') then
-			addr <= std_logic_vector(to_unsigned(1,12))+addr;
+			TC <= std_logic_vector(0,12);
 		end if;
-		if ()
-		end if;
-	end while;
+		
+		
+		
+		
+		
+		
+		for i in 0 to 5 loop
+				for j in 0 to 5 loop
+					for m in 0 to 5 loop
+						for n in 0 to 5 loop
+							if (TM_EN = '1') then 
+								if ()
+								elsif (clk'event and ckl = '0') then
+									addr <= std_logic_vector(to_unsigned(i)&to_unsigned(j)&to_unsigned(m)&to_unsigned(n));
+						end loop;
+					end loop;
+				end loop;
+		end loop;
 
 end imp;
