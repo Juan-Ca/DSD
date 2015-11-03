@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 
 entity g14_7_segment_decoder is
-port(code : in std_logic_vector(3 downto);
+port(code : in std_logic_vector(3 downto 0);
 		RippleBlank_In : in std_logic;
 		RippleBlank_Out : out std_logic;
 		segments : out std_logic_vector(6 downto 0));
