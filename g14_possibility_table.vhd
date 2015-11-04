@@ -27,28 +27,27 @@ TC_LAST <= flag;
 process (clk, TC_RST)
 begin	
 	
-	if(TC = std_logic_vector(to_unsigned(0,12)) then
-			flag <= '0'
-	elsif (TC = std_logic_vector(to_unsigned(2925,12)) then
-			flag <= '1';
+	if(TC = std_logic_vector(to_unsigned(0,12))) then flag <= '0';
+			
+	elsif (TC = std_logic_vector(to_unsigned(2925,12))) then flag <= '1';
 	
 	elsif ((flag = '1' or TC_RST = 1) and clk'event and clk = '1') then
 			TC <= std_logic_vector(0,12);
-	elsif ((TC = std_logic_vector(to_unsigned(365,12) or TC = std_logic_vector(to_unsigned(877,12) or 
-				  TC = std_logic_vector(to_unsigned(1389,12) or TC = std_logic_vector(to_unsigned(1901,12) or 
-				  TC = std_logic_vector(to_unsigned(2413,12))and clk'event and clk = '1') then
-				TC < = TC+512;
-	elsif ((TC = std_logic_vector(to_unsigned(45,12) or TC = std_logic_vector(to_unsigned(109,12) or 
-				  TC = std_logic_vector(to_unsigned(173,12) or TC = std_logic_vector(to_unsigned(237,12) or 
-				  TC = std_logic_vector(to_unsigned(301,12))and clk'event and clk = '1') then
-				TC <= TC+64;
-	elsif ((TC = std_logic_vector(to_unsigned(5,12)) or TC = std_logic_vector(to_unsigned(13,12) or 
-			  TC = std_logic_vector(to_unsigned(21,12) or TC = std_logic_vector(to_unsigned(29,12) or 
-			  TC = std_logic_vector(to_unsigned(37,12))and clk'event and clk = '1') then
+			
+	elsif (TC(8 downto 6) = "101" and clk'event and clk = '1') then
+			TC <= TC+512;
+				
+	elsif (TC(5 downto 3)and clk'event and clk = '1') then
+			TC <= TC+64;
+				
+	elsif (TC(2 downto 0) = "101" and clk'event and clk = '1') then
 			TC <= TC+8;
+			
 	elsif(clk'event and ckl = '1' and flag = '0' and TC_RST = '0') then
 			TC <= TC+1;
+			
 	end if;
+	
 end process;
 
 process(clk, TM_EN, TC_RST)
