@@ -1,3 +1,5 @@
+--Juan Carlos Borges
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -10,18 +12,19 @@ port(code : in std_logic_vector(3 downto 0);
 		segments : out std_logic_vector(6 downto 0));
 end g14_7_segment_decoder;
 
-architecture imp for g14_7_segment_decoder is
-
-begin
-signal x : std_logic_vector(4 downto 0);
+architecture imp of g14_7_segment_decoder is
 signal y : std_logic_vector(7 downto 0);
+signal x : std_logic_vector(4 downto 0);
 begin
-x <= RippleBlank_In & code;
+
 RippleBlank_Out <= y(7);
 segments <= y(6 downto 0);
--- RippleBlank_Out <= RippleBlank_In;
-when code & RippleBlank_In select
-		
+x <= RippleBlank_In & code;
+
+with x select
+
+-- for the right most decoder or decoders that have a RippleBlank_In signal of 0
+
 		y	<= 		"01000000" when "00000",--0
 						"01111001" when "00001",--1
 						"00100100" when "00010",--2
@@ -38,7 +41,9 @@ when code & RippleBlank_In select
 						"01100001" when "01101",--j
 						"01000001" when "01110",--u
 						"01000110" when "01111",--c
-			-- for decoders that are connected to the left part
+						
+-- for the left most decoder or decoders that have a RippleBlank_In signal of 1
+			
 						"11111111" when "10000",--leading 0
 						"01111001" when "10001",--1
 						"00100100" when "10010",--2
@@ -55,8 +60,10 @@ when code & RippleBlank_In select
 						"01100001" when "11101",--j
 						"01000001" when "11110",--u
 						"01000110" when "11111",--c
-				--for all other posible signals
-						"00000000" when others;
+						
+--for any other type of signal
+				
+						"11111111" when others;
 end imp;
 
 
